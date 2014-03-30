@@ -69,3 +69,5 @@ function current_posts_install() {
     ))
     ->execute();
 }
+
+

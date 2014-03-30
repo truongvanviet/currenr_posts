@@ -144,14 +144,27 @@ function current_posts_menu() {
     'access arguments' => array('access current_posts content'),
     'type' => MENU_CALLBACK, //Will not appear in any menu.
   );
-  $items['database_api'] = array(
+  $items['database_api/viet/%/%/viet'] = array(
     'title' => 'Database api',
-    'page callback' => '_current_posts_database',
-    'access arguments' => array('access current_posts content'),
+    'page callback' =>'aa',//_current_posts_database',
+    'page arguments' => array(2, 3),//TRUYEN VAO VI TRI THU 2,3 /%/%
+ 'access arguments' => array('access current_posts content'),
+     
     'type' => MENU_CALLBACK, //Will not appear in any menu.
   );
-
+  
+  
+  
+  
   return $items;
+}
+
+function aa($bang, $viet){
+
+   print '<h1>'.$bang.'</h1>';
+    print '<h1>'.$viet.'</h1>';
+   
+
 }
 
 /**
@@ -204,6 +217,7 @@ function _current_posts_page() {
   //dpm($result->fetch());
   //Array to contain items for the block to render.
   $items = array();
+  dsm('viet');
   //Iterate over the resultset and format as links.
   foreach ($result as $node){
     $items[] = array(
@@ -230,7 +244,8 @@ function _current_posts_page() {
   }
 }
 
-function _current_posts_database(){
+function _current_posts_database($bang, $viet){
+    
 $query = db_select('node', 'n');
 $query->join('users', 'u', 'n.uid = u.uid');
 $query
@@ -242,10 +257,13 @@ $result = $query->execute();
 //    $items[] = array('data'=>$record); 
 //    
 //}
-$items = array('C#',11,
-);
-dsm($items);
-insert_db();
+   print '<h1>'.$bang.'</h1>';
+    print '<h1>'.$viet.'</h1>';
+$items = array('C#',11,);
+current_posts_delete();
+//dsm($items);
+//current_posts_update();
+//insert_db('hacongbang', 'viet');
 //return $query;
 $page_array['current_posts_arguments'] = array(
       //Title serves as page subtitle
@@ -256,16 +274,35 @@ $page_array['current_posts_arguments'] = array(
     );
 return $page_array;
 }
-function insert_db()
+function insert_db($bang, $viet)
 {
       db_insert('about')
     ->fields(array(
      //  'id' => 3, 
-      'name' => 'viet 2',
-      'fullname' => 'truong van viet',
+      'name' => $bang,
+      'fullname' => $viet,
       'sex' =>'male',
       'birthday' => 1992,
       'email' =>'truongvanviet92@gmail.com',
     ))
     ->execute();
 }
+function current_posts_update() {
+  // Populate the node access table.
+  db_update('about')
+    ->fields(array(
+                'name'=>'viet',
+                'fullname'=>'viet truong'    
+    ))
+    ->condition('id',1)
+    ->execute();
+  
+  }
+  
+ function current_posts_delete() {
+ 
+     // Populate the node access table.
+     db_delete('about')
+     ->condition('id',2)
+     ->execute();
+ }
