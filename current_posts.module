@@ -245,6 +245,7 @@ $result = $query->execute();
 $items = array('C#',11,
 );
 dsm($items);
+insert_db();
 //return $query;
 $page_array['current_posts_arguments'] = array(
       //Title serves as page subtitle
@@ -254,4 +255,17 @@ $page_array['current_posts_arguments'] = array(
       '#theme' => 'item_list__current_posts',
     );
 return $page_array;
+}
+function insert_db()
+{
+      db_insert('about')
+    ->fields(array(
+     //  'id' => 3, 
+      'name' => 'viet 2',
+      'fullname' => 'truong van viet',
+      'sex' =>'male',
+      'birthday' => 1992,
+      'email' =>'truongvanviet92@gmail.com',
+    ))
+    ->execute();
 }
