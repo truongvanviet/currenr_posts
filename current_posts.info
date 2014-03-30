@@ -1,0 +1,9 @@
+
+;description mudoles
+name=Current post
+description=a block module that lits lniks to rencent posts.
+package = Current Post
+core = 7.x
+ ; NEW LINE
+configure = admin/config/content/current_posts 
+files[] = current_posts.test
