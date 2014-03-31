@@ -144,10 +144,10 @@ function current_posts_menu() {
     'access arguments' => array('access current_posts content'),
     'type' => MENU_CALLBACK, //Will not appear in any menu.
   );
-  $items['database_api/viet/%/%/viet'] = array(
-    'title' => 'Database api',
+  $items['database_api'] = array(
+    'title' => 'Register',
     'page callback' =>'aa',//_current_posts_database',
-    'page arguments' => array(2, 3),//TRUYEN VAO VI TRI THU 2,3 /%/%
+   // 'page arguments' => array(2, 3),//TRUYEN VAO VI TRI THU 2,3 /%/%
  'access arguments' => array('access current_posts content'),
      
     'type' => MENU_CALLBACK, //Will not appear in any menu.
@@ -156,14 +156,120 @@ function current_posts_menu() {
   
   
   
+  
   return $items;
 }
 
-function aa($bang, $viet){
+function form_example_tutorial_1($form, &$form_state) {
 
-   print '<h1>'.$bang.'</h1>';
-    print '<h1>'.$viet.'</h1>';
+  
+  $form['a']=array(1,2,3,4);
+  
+  
+
+  
+  dpm($form);
+  return $form;
+
+}
+
+
+function aa(){
+
+  // print '<h1>'.$bang.'</h1>';
+   // print '<h1>'.$viet.'</h1>';
+ 
+    $form['name'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Register'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
    
+
+ $form['name']['username'] = array(
+
+  '#type' => 'textfield', 
+
+  '#title' => t('User name'), 
+
+  '#maxlength' => 64, 
+
+  '#size' => 50,
+'#weight' => 1,
+     '#required' => TRUE,
+);
+    $form['name']['pass'] = array(
+
+  '#type' => 'password', 
+
+  '#title' => t('Password'), 
+
+  '#maxlength' => 64, 
+
+  '#size' => 50,
+        '#weight' =>2,
+        '#required' => TRUE,
+
+);
+    
+    $form['name']['passc'] = array(
+
+  '#type' => 'password', 
+
+
+  '#title' => t('Confirm Password'), 
+'#weight' =>3,
+  '#size' => 50,
+'#maxlength' => 64, 
+);
+
+    $form['name']['email'] = array(
+
+  '#type' => 'textfield', 
+ 
+
+  '#title' => t('Email'), 
+
+  '#maxlength' => 64, 
+
+  '#size' => 50,
+   '#weight' => 4,
+        '#required' => TRUE,
+
+);
+    $form['name']['selected'] = array(
+       '#type' => 'select',
+       '#title' => t('Sex'),
+        '#weight' => 5,
+       '#options' => array(
+          0 => t('Male'),
+         1 => t('Female'),
+       ),
+       '#default_value' => 'selected',
+        '#required' => TRUE,
+          );
+    
+     $form['name']['image'] = array(
+    '#name' => 'files[' . implode('_', $element['#parents']) . ']',
+    '#type' => 'file',
+    '#title' => t('Choose a file'),
+    '#title_display' => 'invisible',
+    '#size' => 32,
+    //'#theme_wrappers' => array(),
+    '#weight' => 6,
+         
+  );
+    
+   
+   
+    $form['submit'] = array('#type' => 'submit','#weight' => 7, '#value' => t('Submit'));
+     $form['cancel'] = array('#type' => 'button', '#weight' =>8,'#value' => t('Cancel'));
+    
+    
+
+    dpm($form['name']);
+   return $form;
 
 }
 
@@ -306,3 +412,7 @@ function current_posts_update() {
      ->condition('id',2)
      ->execute();
  }
+ 
+ 
+ 
+ 
